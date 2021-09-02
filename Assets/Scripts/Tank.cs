@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Tank : MonoBehaviour
 {
+    public Vector3 spawnPosition;
     Vector2 tankMovementSpeed;
     public float tankSpeed = 1f;
     public float tankRotSpeed = 10f;
@@ -20,6 +21,12 @@ public class Tank : MonoBehaviour
     {
         transform.Translate(tankSpeed * tankMovementSpeed.y * Time.deltaTime * Vector3.forward);
         transform.Rotate(tankRotSpeed * tankMovementSpeed.x * Time.deltaTime * Vector3.up);
+    }
+
+    public void SetInitialPos(Vector3 position)
+    {
+        spawnPosition = position;
+        transform.position = position;
     }
 
     public void Fire(InputAction.CallbackContext _)
