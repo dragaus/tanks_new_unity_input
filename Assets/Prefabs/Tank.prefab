@@ -210,6 +210,8 @@ GameObject:
   - component: {fileID: 1228673253402967739}
   - component: {fileID: 1228673253403092037}
   - component: {fileID: 1228673253403092038}
+  - component: {fileID: 6340247290654560465}
+  - component: {fileID: 8281478746405312672}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -230,6 +232,7 @@ Transform:
   m_Children:
   - {fileID: 1228673253402967735}
   - {fileID: 7729073363392362556}
+  - {fileID: 7386605620049765959}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -356,7 +359,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tankSpeed: 5
-  tankRotSpeed: 10
+  tankRotSpeed: 50
+  shootForce: 1000
+  health: 0
+  shellPrefab: {fileID: 2702511529288706421, guid: a8f6849f8a728e74b997af206118d85c, type: 3}
+  spawnShellPos: {fileID: 7386605620049765959}
+  destroyTank: {fileID: 6838457942352367136, guid: 97907143216fd9349ae0bca3f5220eba, type: 3}
+--- !u!65 &6340247290654560465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228673253403059035}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7383933, y: 2.026547, z: 2.4407678}
+  m_Center: {x: -0.027014494, y: 0.9455037, z: -0.05402875}
+--- !u!114 &8281478746405312672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228673253403059035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216e88381fc00a64d893475ceb769dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRendererManager: {fileID: 1228673253402967735}
+  tankColour: {fileID: 2100000, guid: 6221f2fbc7212d94cb9c069ee262d824, type: 2}
+  tankCoulours:
+  - {fileID: 2100000, guid: 635cc456a2f62da47af1a29e351f7eb1, type: 2}
+  - {fileID: 2100000, guid: 6221f2fbc7212d94cb9c069ee262d824, type: 2}
+  - {fileID: 2100000, guid: 6221f2fbc7212d94cb9c069ee262d824, type: 2}
+  - {fileID: 2100000, guid: 635cc456a2f62da47af1a29e351f7eb1, type: 2}
 --- !u!1 &1228673253403059037
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +561,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7386605620050262631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7386605620049765959}
+  m_Layer: 0
+  m_Name: SpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7386605620049765959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386605620050262631}
+  m_LocalRotation: {x: -0.14551571, y: -0, z: -0, w: 0.9893559}
+  m_LocalPosition: {x: 0.002, y: 1.457, z: 0.609}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1228673253402967739}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -16.734, y: 0, z: 0}
 --- !u!1001 &769076316103179936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -534,7 +604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1036788309049743280, guid: 9fa93491195d6324799643c23d75dd24, type: 3}
       propertyPath: height
-      value: 0.08
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 1036788309049743280, guid: 9fa93491195d6324799643c23d75dd24, type: 3}
       propertyPath: target
@@ -542,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 1228673253402967739}
     - target: {fileID: 1036788309049743280, guid: 9fa93491195d6324799643c23d75dd24, type: 3}
       propertyPath: distance
-      value: 5.6
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1036788309049743280, guid: 9fa93491195d6324799643c23d75dd24, type: 3}
       propertyPath: rotSpeed
