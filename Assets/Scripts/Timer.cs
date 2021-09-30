@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
         time = minutes * 60 + seconds;
@@ -32,16 +32,16 @@ public class Timer : MonoBehaviour
         if (isCountdown && time >= 0)
         {
             time -= Time.deltaTime;
+            timerText.text = $"{Mathf.FloorToInt(time / 60f):00}:{time % 60:00}";
             if (time < 0) 
             {
+                timerText.text = "00:00";
                 finishCountDown();
             }
         }
-        else
+        else if(!isCountdown)
         { 
             time += Time.deltaTime;
         }
-
-        Debug.Log($"{Mathf.Floor(time / 60):00}:{time  %  60:00}");
     }
 }

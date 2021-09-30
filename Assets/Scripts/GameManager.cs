@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
 
     List<Transform> spawnPoints = new List<Transform>();
     int index = 0;
-    //
+
+    bool theresAWinner;
+    bool timesOff;
+
     [SerializeField]
     List<int> killNumber = new List<int>();
 
@@ -24,8 +27,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerInputManager.instance.JoinPlayer(playerIndex:-1, pairWithDevice: Gamepad.all[0]);
+
         instance = this;
-        Timer.instance.finishCountDown = GameResult;
+        if (Timer.instance)
+        { 
+            Timer.instance.finishCountDown = GameResult;
+        }
         //for (int i = 0; i < spawnPositionManager.transform.childCount; i++)
         //{
         //    spawnPoints.Add(spawnPositionManager.transform.GetChild(i));
@@ -39,8 +47,10 @@ public class GameManager : MonoBehaviour
 
     void GameResult()
     {
+        Debug.Log("Time's up");
         int masMuertes = 0;
         int indexDelGanador = 0;
+        timesOff = true;
 
         for (int i = 0; i < killNumber.Count; i++)
         {
@@ -49,15 +59,30 @@ public class GameManager : MonoBehaviour
             {
                 masMuertes = killNumber[x];
                 indexDelGanador = x;
+                theresAWinner = true;
+            }
+            else if(killNumber[x] == masMuertes)
+            {
+                theresAWinner = false;
             }
         }
 
+        if (!theresAWinner) 
+        {
+            Debug.Log("There's no winner");
+            return;
+        };
         Debug.Log($"El ganador es {indexDelGanador}");
     }
 
     public void UpdateKills(int killerIndex) 
     {
         killNumber[killerIndex]++;
+        if(timesOff)
+        {
+            theresAWinner = true;
+            Debug.Log($"El ganador es {killerIndex}");   
+        }
     }
 
     public void OnSpawnPlayer(PlayerInput input)
@@ -82,6 +107,6 @@ public class GameManager : MonoBehaviour
 
         input.GetComponent<TankColour>().tankCoulours = mats;
 
-        spawnPoints.RemoveAt(randomIndex);
+        spawnPoints.RemoveAt(randomIndex); 
     }
 }
