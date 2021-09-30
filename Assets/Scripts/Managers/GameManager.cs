@@ -27,22 +27,31 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerInputManager.instance.JoinPlayer(playerIndex:-1, pairWithDevice: Gamepad.all[0]);
-
         instance = this;
         if (Timer.instance)
-        { 
+        {
             Timer.instance.finishCountDown = GameResult;
         }
-        //for (int i = 0; i < spawnPositionManager.transform.childCount; i++)
-        //{
-        //    spawnPoints.Add(spawnPositionManager.transform.GetChild(i));
-        //}
 
         foreach (Transform trans in spawnPositionManager)
         {
             spawnPoints.Add(trans);
         }
+
+        //Este une al primer jugador
+        PlayerInputManager.instance.JoinPlayer(
+            playerIndex: 0,
+            controlScheme: "Keyboard&Mouse",
+            pairWithDevice: Keyboard.current);
+
+
+        //Este une al segundo jugador
+        var input = PlayerInputManager.instance.JoinPlayer(playerIndex: 1);
+        //Debido a que Unity new input system no nos permite de manera nativa
+        //controlar dos elementos con el mismo control tenbemos que forzar la interacción
+        PlayerInput.all[input.playerIndex].SwitchCurrentControlScheme(
+            controlScheme: "Keyboard2",
+            Keyboard.current);
     }
 
     void GameResult()
